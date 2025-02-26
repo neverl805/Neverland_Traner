@@ -1,0 +1,21 @@
+{
+    "MainWindow": {
+        "Color_fraction": 1.8,
+        "DpiScale": "Auto",
+        "EnableAcrylicBackground": false,
+        "Language": "Auto",
+        "MinimizeToTray": true,
+        "Model_fraction": 0.5,
+        "PlayBarColor": "#ff225c7f",
+        "RecentPlayNumbers": 300,
+        "Texture_fraction": 1.8
+    },
+    "Folders": {
+        "Model_Download": "",
+        "Pic_Download": ""
+    },
+    "QFluentWidgets": {
+        "ThemeColor": "#ff7e6baa",
+        "ThemeMode": "Dark"
+    }
+}
