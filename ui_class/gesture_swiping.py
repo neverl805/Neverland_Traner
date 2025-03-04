@@ -351,6 +351,7 @@ class Swiping_Class(QWidget):
         :param event:
         :return:
         """
+
         if event.key() == Qt.Key.Key_S:
             self.save_text_img()
         elif event.key() == Qt.Key.Key_W:
@@ -359,3 +360,11 @@ class Swiping_Class(QWidget):
         elif event.key() == Qt.Key_Delete:
             del self.imageDrawings[self.current_image_path]
             self.show_images()
+        elif event.key() == Qt.Key.Key_D:
+            self.current_pic_index += 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
+
+        elif event.key() == Qt.Key.Key_A:
+            self.current_pic_index -= 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
+

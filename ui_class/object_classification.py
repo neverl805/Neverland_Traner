@@ -561,7 +561,8 @@ class Target_Class(QWidget):
                 self.next_pic()
 
     def next_pic(self):
-        self.ui.image_path_list.setCurrentRow(self.ui.image_path_list.currentIndex().row() + 1)
+        self.current_pic_index += 1
+        self.ui.image_path_list.setCurrentRow(self.ui.image_path_list.model().index(self.current_pic_index, 0))
 
 
     def show_onnx_init(self):
@@ -581,6 +582,14 @@ class Target_Class(QWidget):
         """
         if event.key() == Qt.Key.Key_S:
             self.save_text_img(True)
+
+        elif event.key() == Qt.Key.Key_D:
+            self.current_pic_index += 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
+
+        elif event.key() == Qt.Key.Key_A:
+            self.current_pic_index -= 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
 
     def mousePressEvent(self, event):
         self.setFocus()

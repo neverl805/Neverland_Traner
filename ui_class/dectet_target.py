@@ -432,6 +432,7 @@ class Target_Class(QWidget):
                 return
             else:
                 img_path = os.path.join(self.datasets_base_path, self.image_files_list[self.current_pic_index])
+                flag = False
                 if img_path not in self.rects_for_images:
                     self.rects_for_images[img_path] = []
                     self.labels_for_images[img_path] = []
@@ -440,6 +441,17 @@ class Target_Class(QWidget):
                     for i in infos['image']:
                         x1, y1, x2, y2 = i
                         rect = QRect(x1, y1, x2 - x1, y2 - y1)
+
+                        if self.rects_for_images[img_path]:
+                            for i in self.rects_for_images[img_path]:
+                                if i.intersects(rect):
+                                    flag = True
+                                    break
+
+                        if flag:
+                            flag = False
+                            continue
+
                         self.rects_for_images[img_path].append(rect)
                         self.rects.append({'label': 'object', 'rect': rect})
                         self.labels_for_images[img_path].append('object')
@@ -453,6 +465,15 @@ class Target_Class(QWidget):
                     for i in infos['image']:
                         x1, y1, x2, y2 = i['box']
                         rect = QRect(x1, y1, x2 - x1, y2 - y1)
+                        for i in self.rects_for_images[img_path]:
+                            if i.intersects(rect):
+                                flag = True
+                                break
+
+                        if flag:
+                            flag = False
+                            continue
+
                         self.rects_for_images[img_path].append(rect)
                         self.rects.append({'label': i['label'], 'rect': rect})
                         self.labels_for_images[img_path].append(i['label'])
@@ -570,6 +591,14 @@ class Target_Class(QWidget):
 
         elif event.key() == Qt.Key.Key_S:
             self.save_rects_to_yolo()
+
+        elif event.key() == Qt.Key.Key_D:
+            self.current_pic_index += 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
+
+        elif event.key() == Qt.Key.Key_A:
+            self.current_pic_index -= 1
+            self.ui.image_path_list.setCurrentIndex(self.ui.image_path_list.model().index(self.current_pic_index, 0))
 
     def enable_drawing(self):
         """
